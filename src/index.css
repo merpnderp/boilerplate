@@ -1,0 +1,12 @@
+.form-control.grow {
+  transition: all 0.8s;
+  width: 100%;
+  opacity: .75;
+  float: right;
+}
+
+.form-control.grow:focus {
+  width: 150% ;
+  opacity: 1;
+}
+
