@@ -32,9 +32,10 @@ function NavBar(props) {
           </ul>
           <form className="form-inline float-right hidden-sm-down">
             <input
+						style={{width: "180px"}}
               name="searchFieldName"
               id="SearchFieldID"
-              className="form-control grow"
+              className="form-control grow pull-right"
               type="text"
               data-action="grow"
               placeholder="Search"

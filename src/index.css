@@ -1,7 +1,7 @@
 .form-control.grow {
   transition: all 0.8s;
-  width: 100%;
-  opacity: .75;
+  width: 55%;
+  opacity: .5;
   float: right;
 }
 

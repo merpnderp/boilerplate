@@ -15,13 +15,14 @@ import { Provider } from "react-redux";
 import App from "./App";
 import Signup from "./components/Signup";
 import LoginPage from "./components/LoginPage";
+import Preferences from "./components/Preferences";
 import "./index.css";
 
 import ReduxStore from "./store";
 
-import {getCurrentUser} from './mainAR';
+import { getCurrentUser } from "./mainAR";
 
-const store = ReduxStore({main : {test : "foo"}});
+const store = ReduxStore({ main: { test: "foo" } });
 
 store.dispatch(getCurrentUser());
 
@@ -32,6 +33,7 @@ ReactDOM.render(
         <Route path="/" component={App} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/preferences" component={Preferences} />
       </div>
     </Router>
   </Provider>,

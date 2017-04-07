@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import Profile from "../assets/img/km.png";
-import { Popover, PopoverTitle, PopoverContent } from "reactstrap";
+import { Popover, PopoverContent } from "reactstrap";
 import { logout } from "../mainAR";
 //import Brand from "../assets/img/brand-white.png";
 
@@ -16,27 +17,49 @@ class UserAvatar extends Component {
   }
 
   render() {
+    const _props = this.props;
+    const displayName = _props.user
+      ? _props.user.nickname
+          ? _props.user.nickname
+          : _props.user.username
+              ? _props.user.username
+              : _props.user.email ? _props.user.email : null
+      : null;
+
     return (
       <ul className="nav navbar-nav float-right mr-0 hidden-sm-down ml-2">
-        <li className="nav-item ml-2">
+        <li
+          className="nav-item ml-2"
+          onClick={e => {
+            e.preventDefault();
+            this.toggle();
+          }}>
           <button
-            onClick={e => {
-              e.preventDefault();
-              this.toggle();
-            }}
             className="btn btn-default navbar-btn navbar-btn-avatar"
             id="UserAvatar">
-							<img className="rounded-circle" src={Profile} alt="User" ref={c => { this._input = c; }} />
+            <span style={{ marginRight: "1rem" }}>
+              {displayName}
+            </span>
+            <img
+              className="rounded-circle"
+              src={Profile}
+              alt="User"
+              ref={c => {
+                this._input = c;
+              }}
+            />
           </button>
           <Popover
             placement="top"
             isOpen={this.state.showOptions}
             toggle={this.toggle.bind(this)}
             target="UserAvatar">
-            <PopoverTitle>Options</PopoverTitle>
             <PopoverContent>
-              <ul>
-                <li>
+              <ul className="" style={{ width: "200px" }}>
+                <li className="nav-item">
+                  <Link to="/Preferences">Preferences</Link>
+                </li>
+                <li className="nav-item">
                   <a
                     href=""
                     onClick={e => {
