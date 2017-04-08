@@ -1,4 +1,5 @@
-import "./assets/bootstrap/dist/toolkit.min.css";
+//import "./assets/bootstrap/dist/toolkit.min.css";
+import "./assets/bootstrap/dist/toolkit.css";
 import "./assets/bootstrap/dist/application.css";
 import React from "react";
 import ReactDOM from "react-dom";

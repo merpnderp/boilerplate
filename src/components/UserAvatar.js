@@ -55,11 +55,11 @@ class UserAvatar extends Component {
             toggle={this.toggle.bind(this)}
             target="UserAvatar">
             <PopoverContent>
-              <ul className="" style={{ width: "200px" }}>
-                <li className="nav-item">
+              <div className="nav nav-stacked" style={{ width: "200px" }}>
+                <li>
                   <Link to="/Preferences">Preferences</Link>
                 </li>
-                <li className="nav-item">
+                <li>
                   <a
                     href=""
                     onClick={e => {
@@ -67,7 +67,7 @@ class UserAvatar extends Component {
                       this.props.dispatch(logout());
                     }}>Logout</a>
                 </li>
-              </ul>
+              </div>
             </PopoverContent>
           </Popover>
         </li>
