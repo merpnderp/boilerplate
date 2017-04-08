@@ -56,11 +56,7 @@ class Login extends Component {
           : undefined}
 
         <div
-          className="m-b-lg"
-          onClick={() => {
-						this.props.overlayClose();
-            console.log("click", this.props.overlay);
-          }}>
+          className="m-b-lg">
           <button className="btn btn-primary" type="submit">
             Log In
           </button>

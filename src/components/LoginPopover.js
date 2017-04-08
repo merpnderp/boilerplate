@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { OverlayTrigger, Popover, Button } from "react-bootstrap";
+import { OverlayTrigger, Popover } from "react-bootstrap";
 import Login from "./Login";
 
 class LoginPopover extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   clickClose() {
     console.log("clicking");
