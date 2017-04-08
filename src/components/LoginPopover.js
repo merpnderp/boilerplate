@@ -1,45 +1,45 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-//import { Link } from "react-router";
-import { Popover, PopoverTitle, PopoverContent } from "reactstrap";
-//import makeChangeProps from "../stateHelper";
+import { OverlayTrigger, Popover, Button } from "react-bootstrap";
 import Login from "./Login";
 
 class LoginPopover extends Component {
   constructor(props) {
     super(props);
-    this.state = { showLogin: false };
   }
-  toggle() {
-    this.setState({ showLogin: !this.state.showLogin });
+
+  clickClose() {
+    console.log("clicking");
+    this.overlay.click();
   }
 
   render() {
+    const popoverClick = (
+      <Popover id="login popover">
+        {" "}<Login overlayClose={this.clickClose.bind(this)} />
+      </Popover>
+    );
+
     return (
       <ul
         id="#js-popoverContent"
-        className="nav navbar-nav float-right mr-0 hidden-sm-down ml-2">
-        <li className="nav-item ml-2">
-          <a
-            id="navBarLogin"
-            onClick={e => {
-              e.preventDefault();
-              this.toggle();
-            }}
-            className="app-notifications nav-link"
-            href="notifications/index.html">
-            <span className="icon icon-login" /> Login
-          </a>
-          <Popover
-            placement="top"
-            isOpen={this.state.showLogin}
-            target="navBarLogin"
-            toggle={this.toggle.bind(this)}>
-            <PopoverTitle>Login</PopoverTitle>
-            <PopoverContent>
-              <Login />
-            </PopoverContent>
-          </Popover>
+        className="nav navbar-nav navbar-right m-r-0 hidden-xs">
+        <li />
+        <li className="">
+          <OverlayTrigger
+            trigger="click"
+            placement="bottom"
+            rootClose={true}
+            overlay={popoverClick}>
+            <a
+              ref={overlay => {
+                this.overlay = overlay;
+              }}
+              href="#"
+              className="app-notification">
+              Login
+            </a>
+          </OverlayTrigger>
         </li>
       </ul>
     );

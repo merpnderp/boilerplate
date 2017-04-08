@@ -28,14 +28,14 @@ class Signup extends Component {
           <form
             ref={form => this.loginForm = form}
             role="form"
-            className="mx-auto text-center app-login-form"
+            className="m-x-auto text-center app-login-form"
             onSubmit={e => {
               e.preventDefault();
               this.submit();
             }}
           >
 
-            <a href="../index.html" className="app-brand mb-5">
+            <a href="../index.html" className="app-brand m-b-lg">
               <img src={Brand} alt="brand" />
             </a>
 

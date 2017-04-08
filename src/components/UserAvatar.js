@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Profile from "../assets/img/km.png";
-import { Popover, PopoverContent } from "reactstrap";
 import { logout } from "../mainAR";
 //import Brand from "../assets/img/brand-white.png";
 
@@ -25,23 +24,22 @@ class UserAvatar extends Component {
               ? _props.user.username
               : _props.user.email ? _props.user.email : null
       : null;
-
     return (
-      <ul className="nav navbar-nav float-right mr-0 hidden-sm-down ml-2">
+      <ul className="nav navbar-nav navbar-right m-r-0 hidden-xs">
         <li
-          className="nav-item ml-2"
+          className=""
           onClick={e => {
             e.preventDefault();
             this.toggle();
           }}>
           <button
-            className="btn btn-default navbar-btn navbar-btn-avatar"
+            className="btn btn-default navbar-btn navbar-btn-avitar"
             id="UserAvatar">
-            <span style={{ marginRight: "1rem" }}>
+            <span style={{ marginRight: "1rem", color: "rgba(255,255,255,1)" }}>
               {displayName}
             </span>
             <img
-              className="rounded-circle"
+              className="img-circle"
               src={Profile}
               alt="User"
               ref={c => {
@@ -49,6 +47,7 @@ class UserAvatar extends Component {
               }}
             />
           </button>
+					{/*
           <Popover
             placement="top"
             isOpen={this.state.showOptions}
@@ -70,6 +69,7 @@ class UserAvatar extends Component {
               </ul>
             </PopoverContent>
           </Popover>
+					*/}
         </li>
       </ul>
     );

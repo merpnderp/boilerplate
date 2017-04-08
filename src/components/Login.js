@@ -22,7 +22,7 @@ class Login extends Component {
   }
 
   render() {
-    const formClass = `mx-auto text-center ${this.props.showForm
+    const formClass = `m-x-auto text-center ${this.props.showForm
       ? "app-login-form"
       : ""}`;
     return (
@@ -55,7 +55,12 @@ class Login extends Component {
             </div>
           : undefined}
 
-        <div className="m-b-lg">
+        <div
+          className="m-b-lg"
+          onClick={() => {
+						this.props.overlayClose();
+            console.log("click", this.props.overlay);
+          }}>
           <button className="btn btn-primary" type="submit">
             Log In
           </button>
