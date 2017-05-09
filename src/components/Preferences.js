@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
 
 class Preferences extends Component {
   constructor(props) {
@@ -30,8 +29,4 @@ Preferences.contextTypes = {
   router: React.PropTypes.object
 };
 
-export default connect(state => {
-  return {
-    user: state.main.user
-  };
-})(Preferences);
+export default Preferences;

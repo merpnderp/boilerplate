@@ -1,58 +1,59 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import makeChangeProps from "../stateHelper";
-import { login } from "../mainAR";
+import {extendObservable, action} from 'mobx';
+import { observer } from 'mobx-react';
+import viewStore from '../store/ViewStore';
+import userStore from '../store/UserStore';
+//import { login } from "../mainAR";
 
-class Login extends Component {
+const Login = observer(class Login extends Component {
+
   constructor(props) {
     super(props);
-    this.state = { showLogin: false };
-  }
 
-  componentWillReceiveProps(props) {
-    if (props.user && !this.props.user) {
-      this.context.router.push("/");
-    }
-  }
+    extendObservable(this, {
+      showLogin: false,
+      username: '',
+      password: '',
+      setUsername: action((e)=>this.username = e.target.value),
+      setPassword: action((e)=>this.password = e.target.value)
+    })
 
-  submit(e) {
-    e.preventDefault();
-    this.props.login(this.state.username, this.state.password);
   }
 
   render() {
     const formClass = `m-x-auto text-center ${this.props.showForm
       ? "app-login-form"
-      : ""}`;
+      : ""}`
     return (
       <form
         ref={form => this.loginForm = form}
         role="form"
         className={formClass}
-        onSubmit={this.submit.bind(this)}>
+        onSubmit={e => { e.preventDefault(); userStore.login(this.username, this.password) }}>
         <div className="form-group">
           <input
+            value={this.username}
+            onChange={this.setUsername}
             className="form-control"
             placeholder="Username"
-            {...makeChangeProps(this, "username")}
           />
         </div>
 
         <div className="form-group m-b-md">
           <input
+            value={this.password}
+            onChange={this.setPassword}
             type="password"
             className="form-control"
             placeholder="Password"
-            {...makeChangeProps(this, "password")}
           />
         </div>
         {this.props.loginAttemptError
           ? <div className="form-group has-danger">
-              <div className="form-control-feedback">
-                Login Failed
+            <div className="form-control-feedback">
+              Login Failed
               </div>
-            </div>
+          </div>
           : undefined}
 
         <div
@@ -60,9 +61,10 @@ class Login extends Component {
           <button className="btn btn-primary" type="submit">
             Log In
           </button>
-          <Link to={`/signup`} className="btn btn-default ml-2">
+          <a className="btn btn-default ml-2" href="" onClick={e => { e.preventDefault(); viewStore.showSignup(); }}>Sign up</a>
+          {/*<Link to={`/signup`} className="btn btn-default ml-2">
             Sign up
-          </Link>
+          </Link>*/}
         </div>
 
         <footer className="screen-login">
@@ -71,18 +73,6 @@ class Login extends Component {
       </form>
     );
   }
-}
-Login.contextTypes = {
-  router: React.PropTypes.object
-};
+})
 
-export default connect(
-  state => {
-    return {
-      user: state.main.user,
-      loggingIn: state.main.loggingIn,
-      loginAttemptError: state.main.loginAttemptError
-    };
-  },
-  { login }
-)(Login);
+export default Login;

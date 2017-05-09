@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
 function Messages(props) {
 	return (
@@ -259,10 +258,4 @@ function Messages(props) {
 	)
 }
 
-const mapStateToProps = (state/*, props*/) => {
-	return {
-		test: state.main.test
-	}
-}
-
-export default connect(mapStateToProps)(Messages)
+export default Messages;

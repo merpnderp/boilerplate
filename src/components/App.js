@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import './App.css';
 import {setTest} from '../mainActions';
 
 import NavBar from './NavBar';
@@ -46,8 +44,4 @@ class App extends Component {
   }
 }
 
-export default connect((state/*, props*/) => {
-  return {
-    test: state.main.test
-  }
-})(App);
+export default App;

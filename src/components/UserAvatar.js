@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { OverlayTrigger, Popover } from "react-bootstrap";
-import Profile from "../assets/img/km.png";
-import { logout } from "../mainAR";
+import {readFileSync} from 'fs';
+//import { logout } from "../mainAR";
 
 class UserAvatar extends Component {
 
@@ -29,7 +27,7 @@ class UserAvatar extends Component {
               href=""
               onClick={e => {
                 e.preventDefault();
-                this.props.dispatch(logout());
+//                this.props.dispatch(logout());
               }}>Logout</a>
           </li>
         </div>
@@ -53,7 +51,7 @@ class UserAvatar extends Component {
               </span>
               <img
                 className="img-circle"
-                src={Profile}
+                src="assets/img/km.png"
                 alt="User"
                 ref={c => {
                   this._input = c;
@@ -67,4 +65,4 @@ class UserAvatar extends Component {
   }
 }
 
-export default connect(({ main: { user } }) => ({ user }))(UserAvatar);
+export default UserAvatar;

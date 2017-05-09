@@ -1,9 +1,43 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { observer } from 'mobx-react';
 //import logo from './logo.svg';
-import "./App.css";
 import NavBar from "./components/NavBar";
-import "./test";
+import Signup from './components/Signup';
+import Login from './components/Login';
+
+function renderCurrentView(store) {
+  const view = store.currentView;
+  switch (view.name) {
+    case "home":
+      return (
+        <div>
+          <NavBar />
+        </div>
+      )
+    case "overview":
+      return <DocumentOverview view={view} store={store} />
+    case "document":
+      return <Document view={view} store={store} />
+    case "login":
+      return (
+        <div className="container-fluid container-fill-height">
+          <div className="container-content-middle">
+            <Login showForm={true} />
+          </div>
+        </div>
+      )
+    case "signup":
+      console.log("rendering Signup");
+      return <Signup />
+  }
+}
+
+export const App = observer(({ store }) => (
+  <div>
+    {renderCurrentView(store)}
+  </div>
+))
+
 /*
 import MiniProfile from "./components/MiniProfile";
 import About from "./components/About";
@@ -15,17 +49,7 @@ import MediaStream from "./components/MediaStream";
 */
 //import {getCurrentUser} from './mainAR';
 
-class App extends Component {
-  //constructor(props){
-  //		super(props);
-  //	props.dispatch(getCurrentUser());
-  //	}
-  render() {
-    return (
-      <div>
-        <NavBar />
-        {this.props.children}
-        {/*	
+/*	
         <div className="container pt-4">
           <div className="row">
 						<div className="col-lg-3">
@@ -44,14 +68,3 @@ class App extends Component {
           </div>
         </div>
 					*/
-        }
-      </div>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return { todos: state.todos };
-}
-
-export default connect(mapStateToProps)(App);

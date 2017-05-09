@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
 import Login from "./Login";
 
 class LoginPage extends Component {
@@ -25,12 +24,4 @@ class LoginPage extends Component {
   }
 }
 
-LoginPage.contextTypes = {
-  router: React.PropTypes.object
-};
-
-export default connect(state => {
-  return {
-    user: state.main.user
-  };
-})(LoginPage);
+export default LoginPage;

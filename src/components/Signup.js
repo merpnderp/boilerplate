@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import makeChangeProps from "../stateHelper";
-import { signup } from "../mainAR";
-import Brand from "../assets/img/brand.png";
+import viewStore from '../store/ViewStore';
+import userStore from '../store/userStore';
+// import Brand from "../assets/img/brand.png";
 
 class Signup extends Component {
   constructor(props) {
@@ -11,14 +9,8 @@ class Signup extends Component {
     this.state = {};
   }
 
-  componentWillReceiveProps(props) {
-    if (props.signupSuccess && !this.props.signupSuccss) {
-      this.context.router.history.push("/login");
-    }
-  }
-
   submit() {
-    this.props.dispatch(signup(this.state.username, this.state.password));
+    //    this.props.dispatch(signup(this.state.username, this.state.password));
   }
 
   render() {
@@ -36,14 +28,13 @@ class Signup extends Component {
           >
 
             <a href="../index.html" className="app-brand m-b-lg">
-              <img src={Brand} alt="brand" />
+              <img src="/assets/img/brand.png" alt="brand" />
             </a>
 
             <div className="form-group">
               <input
                 className="form-control"
                 placeholder="Username"
-                {...makeChangeProps(this, "username")}
               />
             </div>
 
@@ -52,7 +43,6 @@ class Signup extends Component {
                 type="password"
                 className="form-control"
                 placeholder="Password"
-                {...makeChangeProps(this, "password")}
               />
             </div>
 
@@ -61,25 +51,25 @@ class Signup extends Component {
                 type="password"
                 className="form-control"
                 placeholder="Password Again"
-                {...makeChangeProps(this, "password2")}
               />
             </div>
 
             {this.props.loginAttemptError
               ? <div className="form-group has-danger">
-                  <div className="form-control-feedback">
-                    Login Failed
+                <div className="form-control-feedback">
+                  Login Failed
                   </div>
-                </div>
+              </div>
               : ""}
 
             <div className="m-b-lg">
               <button className="btn btn-primary" type="submit">
                 Sign up{" "}
               </button>
-              <Link to={`/login`} className="btn btn-default ml-2">
+              <a href="" onClick={e=>{e.preventDefault(); viewStore.showLogin()}} className="btn btn-default">Login</a>
+              {/*<Link to={`/login`} className="btn btn-default ml-2">
                 Login
-              </Link>
+              </Link>*/}
             </div>
 
             <footer className="screen-login" />
@@ -90,14 +80,4 @@ class Signup extends Component {
   }
 }
 
-Signup.contextTypes = {
-  router: React.PropTypes.object
-};
-
-export default connect(state => {
-  return {
-    loggingIn: state.main.loggingIn,
-    loginAttemptError: state.main.loginAttemptError,
-    signupSuccess: state.main.signupSuccess
-  };
-})(Signup);
+export default Signup;

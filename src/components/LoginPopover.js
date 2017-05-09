@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import Login from "./Login";
 
@@ -13,7 +12,7 @@ class LoginPopover extends Component {
   render() {
     const popoverClick = (
       <Popover id="login popover">
-        {" "}<Login overlayClose={this.clickClose.bind(this)} />
+        {" "}<Login store={this.props.store} overlayClose={this.clickClose.bind(this)} />
       </Popover>
     );
 
@@ -32,7 +31,8 @@ class LoginPopover extends Component {
               ref={overlay => {
                 this.overlay = overlay;
               }}
-              href="#"
+              onClick={e => e.preventDefault()}
+              href=""
               className="app-notification">
               Login
             </a>
@@ -43,9 +43,4 @@ class LoginPopover extends Component {
   }
 }
 
-export default connect(state => {
-  return {
-    loggingIn: state.main.loggingIn,
-    loginAttemptError: state.main.loginAttemptError
-  };
-})(LoginPopover);
+export default LoginPopover;

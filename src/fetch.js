@@ -12,7 +12,7 @@ function checkStatus(response) {
   } else {
     var error = new Error(response.statusText);
     error.response = response;
-    throw error;
+    Promise.reject(error);
   }
 }
 
@@ -45,15 +45,25 @@ export function postForm(url, form) {
 }
 
 export function postAJAX(url, object) {
-  return fetch(url, {
-    credentials: "include",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRF-TOKEN": CSRFToken
-    },
-    body: JSON.stringify(object)
+  return new Promise((resolve, reject) => {
+    window.fetch(url, {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": CSRFToken
+      },
+      body: JSON.stringify(object)
+    }).then(res => {
+      if (res.ok) {
+        res.json().then(resolve).catch(reject);
+      } else {
+        reject(res)
+      }
+    }).catch(reject);
   })
-    .then(checkStatus)
-    .then(parseJSON);
+}
+
+export function getCurrentUser() {
+  return postAJAX('users/getCurrentUser');
 }

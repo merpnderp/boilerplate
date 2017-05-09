@@ -1,41 +1,35 @@
-import "./assets/bootstrap/dist/toolkit.min.css";
-import "./assets/bootstrap/dist/application.css";
 import React from "react";
 import ReactDOM from "react-dom";
-//import { Router, Route, Link, browserHistory } from 'react-router';
+import fetch from './fetch';
+//Force mobx state updates in explicit actions
+import { useStrict } from 'mobx';
+useStrict(true);
+// import Signup from "./components/Signup";
+// import LoginPage from "./components/LoginPage";
+// import Preferences from "./components/Preferences";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  browserHistory
-} from "react-router-dom";
+import { startRouter } from './store/router';
+import ViewStore from './store/ViewStore';
+import UserStore from './store/UserStore';
+import {App} from "./App";
 
-import { Provider } from "react-redux";
+const userStore = UserStore.init(fetch);
+const viewStore = ViewStore.init(fetch);
 
-import App from "./App";
-import Signup from "./components/Signup";
-import LoginPage from "./components/LoginPage";
-import Preferences from "./components/Preferences";
-import "./index.css";
-
-import ReduxStore from "./store";
-
-import { getCurrentUser } from "./mainAR";
-
-const store = ReduxStore({ main: { test: "foo" } });
-
-store.dispatch(getCurrentUser());
+startRouter(viewStore);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <div>
-        <Route path="/" component={App} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/preferences" component={Preferences} />
-      </div>
-    </Router>
-  </Provider>,
+  <App store={ viewStore } />,
   document.getElementById("root")
 );
+/*ReactDOM.render(
+  <Router history={browserHistory}>
+    <div>
+      <Route path="/" component={App} />
+      <Route path="/signup" component={Signup} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/preferences" component={Preferences} />
+    </div>
+  </Router>,
+  document.getElementById("root")
+);*/

@@ -2,27 +2,55 @@
   "name": "boilerplate",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "buildDepBundle": "browserify -r director -r mobx -r mobx-react -r mobx-utils -r react -r react-bootstrap -r react-dom -r whatwg-fetch -v > public/bundle.js ",
+    "buildAppBundle": "browserify src/index.js -x director -x mobx -x mobx-react -x mobx-utils -x react -x react-bootstrap -x react-dom -x whatwg-fetch  -v > public/app.js",
+    "startWatchify": "watchify --debug  src/index.js -x director -x mobx -x mobx-react -x mobx-utils -x react -x react-bootstrap -x react-dom -x whatwg-fetch -vo public/app.js",
+    "watch": "http-server -s -p 3000 --proxy http://localhost:3001 & yarn run buildDepBundle & yarn run startWatchify",
+    "buildApp": "browserify src/index.js -v > public/app.js",
+    "buildBundle": "yarn run buildDepBundle & yarn run buildAppBundle",
+    "build": "http-server -p 3000 --proxy http://localhost:3001  & yarn run buildApp"
+  },
   "devDependencies": {
-    "react-scripts": "^0.9.5"
+    "babel-core": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "brfs": "^1.4.3",
+    "browserify": "^14.3.0",
+    "browserify-css": "^0.10.1",
+    "http-server": "^0.10.0",
+    "watchify": "^3.9.0"
   },
   "dependencies": {
-    "dotty": "^0.0.2",
-    "immutability-helper": "^2.1.2",
+    "director": "^1.2.8",
+    "mobx": "^3.1.9",
+    "mobx-react": "^4.1.8",
+    "mobx-utils": "^2.0.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.4.2",
-    "react-redux": "^5.0.2",
-    "react-router": "^4.0.0",
-    "react-router-dom": "^4.0.0",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^2.0.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "browserify-css": {
+    "autoInject": true,
+    "minify": true,
+    "rootDir": "."
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "env",
+            "react"
+          ],
+          "plugins": [
+          ]
+        }
+      ]
+    ]
   },
   "proxy": "http://127.0.0.1:3001/"
 }

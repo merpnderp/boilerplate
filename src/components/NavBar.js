@@ -1,9 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import LoginPopover from "./LoginPopover";
 import UserAvatar from "./UserAvatar";
-
-import Brand from "../assets/img/brand-white.png";
+import {readFileSync} from 'fs';
+import store from '../store/ViewStore';
+//import Brand from "../assets/img/brand-white.png";
 
 function NavBar(props) {
   return (
@@ -11,7 +11,7 @@ function NavBar(props) {
       <div className="container">
         <div className="navbar-header">
           <a className="navbar-brand" href="index.html">
-            <img src={Brand} alt="brand" />
+            <img src="assets/img/brand-white.png" alt="brand" />
           </a>
         </div>
         <div id="navbar-collapse-main" className="navbar-collapse collapse ">
@@ -33,7 +33,7 @@ function NavBar(props) {
           </ul>
           {props.gettingCurrentUser
             ? ""
-            : props.user ? <UserAvatar /> : <LoginPopover />}
+            : props.user ? <UserAvatar /> : <LoginPopover store={props.store} />}
           <form className="navbar-form navbar-right app-search">
             <div className="form-group">
               <input
@@ -53,16 +53,4 @@ function NavBar(props) {
   );
 }
 
-export default connect(({ main: { gettingCurrentUser, user } }) => ({
-  gettingCurrentUser,
-  user
-}))(NavBar);
-
-/*
-  export default connect(
-  state => { return {
-    test: state.main.test,
-    user: state.main.user
-  }}
-)(NavBar);
-*/
+export default NavBar;
